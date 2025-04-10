@@ -12,6 +12,15 @@ $CONFIG = '{"lang":"en","error_reporting":false,"show_hidden":false,"hide_Cols":
 //TFM version
 define('VERSION', '2.6 (custom)');
 
+// Charge manuellement le fichier .env
+$envFile = __DIR__ . '/.env';
+if (file_exists($envFile)) {
+    foreach (file($envFile, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES) as $line) {
+        if (str_starts_with(trim($line), '#')) continue;
+        putenv(trim($line));
+    }
+}
+
 //Application Title
 define('APP_TITLE', getenv('APP_TITLE') ?: 'File Manager Hosting');
 define('APP_LOGO', getenv('APP_LOGO') ?: 'logo.png');
